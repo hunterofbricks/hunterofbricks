@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter of Bricks — Sklep z klockami LEGO</title>
+<meta name="description" content="Wyselekcjonowane, kompletne zestawy LEGO w bardzo dobrym stanie. Każdy zestaw zweryfikowany klocek po klocku. Kraków.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1B2A;
+  --navy-light: #122233;
+  --navy-card: #0F2030;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-border: rgba(201,168,76,0.22);
+  --text: #F0E6C8;
+  --text-muted: #7A8B98;
+  --text-dim: #4A6070;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--navy); color: var(--text); font-family: 'Lato', sans-serif; overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 3rem;
+  background: rgba(13,27,42,0.97);
+  border-bottom: 1px solid var(--gold-border);
+  backdrop-filter: blur(8px);
+}
+.nav-logo { font-family: 'Cinzel', serif; font-size: 14px; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+
+.hero {
+  min-height: 88vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 4rem 2rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow { font-size: 11px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 2rem; opacity: 0.8; }
+.hero h1 { font-family: 'Cinzel', serif; font-size: clamp(36px, 7vw, 68px); font-weight: 700; color: var(--gold); letter-spacing: 6px; text-transform: uppercase; line-height: 1; }
+.hero h1 span { color: var(--text); font-weight: 400; }
+.hero-line { width: 50px; height: 1px; background: var(--gold); margin: 2rem auto; opacity: 0.4; }
+.hero-desc { font-size: 16px; color: var(--text-muted); max-width: 420px; line-height: 1.9; font-weight: 300; margin-bottom: 3rem; }
+.btn {
+  display: inline-block; padding: 0.9rem 2.8rem;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; background: transparent; transition: all 0.25s;
+}
+.btn:hover { background: var(--gold); color: var(--navy); }
+.btn-ghost { border-color: rgba(201,168,76,0.3); color: var(--text-muted); margin-left: 1rem; }
+.btn-ghost:hover { background: transparent; border-color: var(--gold); color: var(--gold); }
+
+.stats { display: flex; border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border); }
+.stat { flex: 1; padding: 2rem 1rem; text-align: center; border-right: 1px solid var(--gold-border); }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: 'Cinzel', serif; font-size: 28px; color: var(--gold); display: block; }
+.stat-label { font-size: 10px; letter-spacing: 2.5px; color: var(--text-dim); text-transform: uppercase; margin-top: 6px; display: block; }
+
+.offers-section { padding: 5rem 3rem; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-tag { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 1rem; }
+.section-header h2 { font-family: 'Cinzel', serif; font-size: 24px; color: var(--text); font-weight: 400; letter-spacing: 2px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2.5rem; }
+.filter-btn {
+  padding: 0.5rem 1.4rem; border: 1px solid var(--gold-border);
+  background: transparent; color: var(--text-muted);
+  font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+.filter-btn.active { border-color: var(--gold); background: var(--gold); color: var(--navy); font-weight: 700; }
+
+.offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+
+.offer-card {
+  border: 1px solid var(--gold-border); background: var(--navy-card);
+  transition: border-color 0.25s, transform 0.25s;
+  display: flex; flex-direction: column;
+}
+.offer-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+
+.offer-thumb {
+  width: 100%; aspect-ratio: 4/3; object-fit: contain;
+  background: #0a1520; padding: 1rem;
+  border-bottom: 1px solid var(--gold-border);
+}
+.offer-thumb-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  background: #0a1520;
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid var(--gold-border);
+}
+
+.offer-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+
+.offer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; gap: 1rem; }
+.offer-name { font-family: 'Cinzel', serif; font-size: 14px; color: var(--text); font-weight: 400; line-height: 1.4; flex: 1; }
+.offer-price { font-family: 'Cinzel', serif; font-size: 22px; color: var(--gold); white-space: nowrap; }
+
+.offer-tags { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.offer-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--gold-border); color: var(--gold); opacity: 0.8; }
+.offer-tag.used { border-color: rgba(120,160,180,0.3); color: #78A0B4; }
+.offer-tag.new-tag { border-color: rgba(100,180,120,0.3); color: #64B478; }
+.offer-tag.parts { border-color: rgba(180,140,100,0.3); color: #B48C64; }
+
+.offer-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem; font-weight: 300; font-style: italic; }
+
+.offer-specs { border-top: 1px solid var(--gold-border); border-bottom: 1px solid var(--gold-border); padding: 0.8rem 0; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.spec-row { display: flex; justify-content: space-between; font-size: 12px; }
+.spec-label { color: var(--text-dim); letter-spacing: 1px; }
+.spec-value { color: var(--text-muted); font-weight: 400; }
+
+.offer-cta { margin-top: auto; }
+.offer-cta a {
+  display: block; text-align: center; padding: 0.75rem;
+  border: 1px solid var(--gold-border); color: var(--gold);
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  text-decoration: none; transition: all 0.2s;
+}
+.offer-cta a:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+.loading { text-align: center; padding: 5rem; color: var(--text-dim); grid-column: 1/-1; }
+.loading-dots { display: flex; gap: 8px; justify-content: center; margin-top: 1rem; }
+.loading-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; opacity: 0.3; animation: pulse 1.2s infinite; }
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse { 0%,80%,100%{opacity:0.3;transform:scale(1)} 40%{opacity:1;transform:scale(1.3)} }
+
+.no-results { text-align: center; padding: 4rem; color: var(--text-dim); font-size: 14px; letter-spacing: 1px; grid-column: 1/-1; }
+.error-msg { text-align: center; padding: 3rem; color: #B46464; font-size: 13px; grid-column: 1/-1; }
+
+.about { padding: 5rem 3rem; border-top: 1px solid var(--gold-border); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.about-text h2 { font-family: 'Cinzel', serif; font-size: 22px; color: var(--text); font-weight: 400; letter-spacing: 2px; margin-bottom: 1.5rem; }
+.about-text p { font-size: 15px; color: var(--text-muted); line-height: 1.9; font-weight: 300; margin-bottom: 1rem; }
+.about-features { display: flex; flex-direction: column; gap: 1.2rem; }
+.about-feature { display: flex; gap: 1rem; align-items: flex-start; }
+.about-feature-icon { width: 32px; height: 32px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.about-feature-text strong { display: block; font-size: 12px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+.about-feature-text span { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+.contact { padding: 5rem 3rem; text-align: center; border-top: 1px solid var(--gold-border); }
+.contact h2 { font-family: 'Cinzel', serif; font-size: 24px; color: var(--text); font-weight: 400; letter-spacing: 2px; margin-bottom: 1rem; }
+.contact p { font-size: 14px; color: var(--text-muted); margin-bottom: 2.5rem; }
+.contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+footer { padding: 1.5rem 3rem; border-top: 1px solid var(--gold-border); display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold); letter-spacing: 3px; }
+.footer-copy { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.2rem; }
+  .nav-links a { font-size: 10px; letter-spacing: 1.5px; }
+  .offers-section { padding: 3rem 1.2rem; }
+  .about { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+  .contact { padding: 3rem 1.5rem; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  .stats { flex-wrap: wrap; }
+  .stat { min-width: 50%; border-right: none; border-bottom: 1px solid var(--gold-border); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hunter of Bricks</div>
+  <ul class="nav-links">
+    <li><a href="#oferty">Oferty</a></li>
+    <li><a href="#o-mnie">O mnie</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Kraków · Sklep z klockami LEGO</p>
+  <h1>Hunter <span>of</span> Bricks</h1>
+  <div class="hero-line"></div>
+  <p class="hero-desc">Wyselekcjonowane, kompletne zestawy LEGO w bardzo dobrym stanie. Każdy zestaw zweryfikowany klocek po klocku.</p>
+  <div>
+    <a href="#oferty" class="btn">Zobacz oferty</a>
+    <a href="https://www.olx.pl/oferty/uzytkownik/1wLfx/" target="_blank" class="btn btn-ghost">Profil OLX</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" id="stat-count">—</span><span class="stat-label">Zestawów</span></div>
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Kompletność</span></div>
+  <div class="stat"><span class="stat-num">Kraków</span><span class="stat-label">Odbiór osobisty</span></div>
+  <div class="stat"><span class="stat-num">Za pobraniem</span><span class="stat-label">Bezpieczna wysyłka</span></div>
+</div>
+
+<section class="offers-section" id="oferty">
+  <div class="section-header">
+    <span class="section-tag">Aktualne oferty</span>
+    <h2>Dostępne zestawy</h2>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="all">Wszystkie</button>
+    <button class="filter-btn" data-filter="used">Używane</button>
+    <button class="filter-btn" data-filter="new">Nowe</button>
+    <button class="filter-btn" data-filter="parts">Części</button>
+  </div>
+  <div class="offers-grid" id="offers-grid">
+    <div class="loading">
+      <div style="font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;">Ładowanie ofert</div>
+      <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="o-mnie">
+  <div class="about-text">
+    <span class="section-tag">O mnie</span>
+    <h2>Każdy klocek na swoim miejscu</h2>
+    <p>Specjalizuję się w skupowaniu, weryfikowaniu i odsprzedaży zestawów LEGO. Zanim jakikolwiek zestaw trafi do sprzedaży, sprawdzam go klocek po klocku z bazą BrickLink.</p>
+    <p>Kupujesz z gwarancją kompletności — jeśli coś się nie zgadza, zwracam pieniądze.</p>
+  </div>
+  <div class="about-features">
+    <div class="about-feature">
+      <div class="about-feature-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7L5.5 10.5L12 3" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+      <div class="about-feature-text"><strong>Weryfikacja</strong><span>Każdy zestaw sprawdzony klocek po klocku z bazą BrickLink</span></div>
+    </div>
+    <div class="about-feature">
+      <div class="about-feature-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5" width="10" height="7" rx="1" stroke="#C9A84C" stroke-width="1.5"/><path d="M4 5V4C4 2.9 4.9 2 6 2H8C9.1 2 10 2.9 10 4V5" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+      <div class="about-feature-text"><strong>Bezpieczeństwo</strong><span>Wysyłka za pobraniem — płacisz gdy paczka jest już u Ciebie</span></div>
+    </div>
+    <div class="about-feature">
+      <div class="about-feature-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#C9A84C" stroke-width="1.5"/><path d="M7 4V7L9 9" stroke="#C9A84C" stroke-width="1.5"/></svg></div>
+      <div class="about-feature-text"><strong>Szybka wysyłka</strong><span>Wysyłam tego samego lub następnego dnia roboczego</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <span class="section-tag">Kontakt</span>
+  <h2>Masz pytanie?</h2>
+  <p>Napisz do mnie — odpowiadam zazwyczaj w ciągu kilku godzin</p>
+  <div class="contact-links">
+    <a href="mailto:hunterofbricks@gmail.com" class="btn">hunterofbricks@gmail.com</a>
+    <a href="https://www.olx.pl/oferty/uzytkownik/1wLfx/" target="_blank" class="btn btn-ghost">Profil OLX</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Hunter of Bricks</div>
+  <div class="footer-copy">© 2025 hunterofbricks.pl · Kraków</div>
+</footer>
+
+<script>
+const SHEETS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBN3pR6SvXDy374ysEHLPJ2B0rdKx650K-8ptsB-itVjuasZ6JhKGRv4GeDG5YYY0bL6X25ygE9j3A/pub?gid=2016875399&single=true&output=csv";
+const REBRICKABLE_KEY = "0ed84dcab12396601d4d281d038e22c6";
+
+let allOffers = [];
+let activeFilter = 'all';
+
+function csvToArray(csv) {
+  const lines = csv.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,''));
+  return lines.slice(1).map(line => {
+    const vals = [];
+    let cur = '', inQ = false;
+    for (let ch of line) {
+      if (ch === '"') inQ = !inQ;
+      else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    vals.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (vals[i] || '').replace(/^"|"$/g,''));
+    return obj;
+  }).filter(r => r['Numer setu'] && r['Numer setu'].trim() !== '');
+}
+
+async function fetchSetData(numer) {
+  try {
+    const r = await fetch(`https://rebrickable.com/api/v3/lego/sets/${numer}-1/?key=${REBRICKABLE_KEY}`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    const rf = await fetch(`https://rebrickable.com/api/v3/lego/sets/${numer}-1/minifigs/?key=${REBRICKABLE_KEY}`);
+    const df = rf.ok ? await rf.json() : { count: 0 };
+    return {
+      nazwa: d.name,
+      rok: d.year,
+      klocki: d.num_parts,
+      figurki: df.count,
+      motyw: d.theme_id,
+      img: d.set_img_url
+    };
+  } catch(e) { return null; }
+}
+
+function tagInfo(kat) {
+  if (kat === 'used') return ['used', 'Używany'];
+  if (kat === 'new') return ['new-tag', 'Nowy'];
+  if (kat === 'parts') return ['parts', 'Części'];
+  return ['used', kat];
+}
+
+function stanLabel(stan) {
+  const s = (stan||'').toLowerCase();
+  if (s.includes('bardzo dobry')) return 'Bardzo dobry';
+  if (s.includes('dobry')) return 'Dobry';
+  if (s.includes('nowy')) return 'Nowy';
+  if (s.includes('używany')) return 'Używany';
+  return stan || '—';
+}
+
+function renderCard(offer) {
+  const [tagCls, tagLabel] = tagInfo(offer.kategoria);
+  const img = offer.apiData && offer.apiData.img
+    ? `<img class="offer-thumb" src="${offer.apiData.img}" alt="${offer.apiData.nazwa || offer.numer}" loading="lazy">`
+    : `<div class="offer-thumb-placeholder"><svg width="50" height="50" viewBox="0 0 50 50" fill="none"><rect x="8" y="16" width="34" height="22" rx="2" stroke="#C9A84C" stroke-width="1.2" opacity="0.3"/><circle cx="18" cy="16" r="3" fill="#C9A84C" opacity="0.2"/><circle cx="32" cy="16" r="3" fill="#C9A84C" opacity="0.2"/></svg></div>`;
+
+  const nazwa = offer.apiData ? offer.apiData.nazwa : `Set ${offer.numer}`;
+  const rok = offer.apiData ? offer.apiData.rok : '—';
+  const klocki = offer.apiData ? offer.apiData.klocki : '—';
+  const figurki = offer.apiData ? offer.apiData.figurki : '—';
+
+  const specsHTML = `
+    <div class="offer-specs">
+      <div class="spec-row"><span class="spec-label">Numer setu</span><span class="spec-value">${offer.numer}</span></div>
+      <div class="spec-row"><span class="spec-label">Rok wydania</span><span class="spec-value">${rok}</span></div>
+      <div class="spec-row"><span class="spec-label">Liczba klocków</span><span class="spec-value">${klocki}</span></div>
+      <div class="spec-row"><span class="spec-label">Minifigurki</span><span class="spec-value">${figurki > 0 ? figurki : 'brak'}</span></div>
+      <div class="spec-row"><span class="spec-label">Stan</span><span class="spec-value">${stanLabel(offer.stan)}</span></div>
+      <div class="spec-row"><span class="spec-label">Instrukcja</span><span class="spec-value">${offer.instrukcja || 'brak'}</span></div>
+      <div class="spec-row"><span class="spec-label">Opakowanie</span><span class="spec-value">${offer.opakowanie || 'brak'}</span></div>
+    </div>`;
+
+  return `
+    <div class="offer-card" data-kat="${offer.kategoria}">
+      ${img}
+      <div class="offer-body">
+        <div class="offer-top">
+          <div class="offer-name">${nazwa}</div>
+          <div class="offer-price">${offer.cena} zł</div>
+        </div>
+        <div class="offer-tags">
+          <span class="offer-tag ${tagCls}">${tagLabel}</span>
+        </div>
+        ${specsHTML}
+        <div class="offer-cta">
+          <a href="${offer.link}" target="_blank" rel="noopener">Przejdź do oferty →</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderOffers() {
+  const grid = document.getElementById('offers-grid');
+  const filtered = activeFilter === 'all' ? allOffers : allOffers.filter(o => o.kategoria === activeFilter);
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">Brak ofert w tej kategorii</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(renderCard).join('');
+}
+
+async function loadOffers() {
+  const grid = document.getElementById('offers-grid');
+  try {
+    const proxyUrl = `https://opensheet.elk.sh/1tFGIgoFMlnE-qryWbtgOtxjkISh0K6P1tkYfb6kVoyQ/Sklep`;
+    const res = await fetch(proxyUrl);
+    if (!res.ok) throw new Error('Błąd pobierania arkusza');
+    const rows = await res.json();
+
+    document.getElementById('stat-count').textContent = rows.length + '+';
+
+    const offers = rows.map(r => ({
+      numer: r['Numer setu'] || '',
+      kategoria: r['Kategoria'] || 'used',
+      cena: r['Cena'] || '—',
+      stan: r['Stan'] || '',
+      instrukcja: r['Instrukcja'] || '',
+      opakowanie: r['Oryginalne opakowanie'] || '',
+      link: r['Link OLX'] || 'https://www.olx.pl/oferty/uzytkownik/1wLfx/',
+      apiData: null
+    })).filter(o => o.numer && o.numer.trim() !== '');
+
+    allOffers = offers;
+    renderOffers();
+
+    for (let i = 0; i < offers.length; i++) {
+      const data = await fetchSetData(offers[i].numer);
+      allOffers[i].apiData = data;
+      renderOffers();
+      await new Promise(r => setTimeout(r, 300));
+    }
+
+  } catch(e) {
+    grid.innerHTML = `<div class="error-msg">Nie udało się załadować ofert.<br>Sprawdź czy arkusz jest opublikowany.</div>`;
+  }
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderOffers();
+  });
+});
+
+loadOffers();
+</script>
+</body>
+</html>
