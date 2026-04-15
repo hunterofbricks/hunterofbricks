@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter of Bricks — Sklep z klockami LEGO®</title>
+<meta name="description" content="Kolekcjonerskie klasyki LEGO® z lat 80. i 90. oraz fabrycznie nowe, wycofane zestawy. Kraków.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0D1B2A; --navy-light:#122233; --navy-card:#0F2030;
+  --gold:#C9A84C; --gold-dim:rgba(201,168,76,0.12); --gold-border:rgba(201,168,76,0.22);
+  --text:#F0E6C8; --text-muted:#7A8B98; --text-dim:#4A6070;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--navy);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;background:rgba(13,27,42,0.97);border-bottom:1px solid var(--gold-border);backdrop-filter:blur(8px);}
+.nav-logo{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+
+.hero{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;}
+.hero-eyebrow{font-size:11px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(36px,7vw,68px);color:var(--gold);letter-spacing:6px;text-transform:uppercase;line-height:1.1;}
+.hero-desc{font-size:16px;color:var(--text-muted);max-width:550px;line-height:1.8;margin:2rem 0 3rem;}
+
+.stats{display:flex;border-top:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border);}
+.stat{flex:1;padding:2rem 1rem;text-align:center;border-right:1px solid var(--gold-border);}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);display:block;}
+.stat-label{font-size:10px;letter-spacing:2.5px;color:var(--text-dim);text-transform:uppercase;margin-top:6px;display:block;}
+
+/* --- FILTRY --- */
+.filter-section { padding: 3rem 3rem 0; max-width: 1400px; margin: 0 auto; }
+.filter-sort-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.left-controls {display:flex;align-items:center;gap:1rem;}
+.sort-group{display:flex;align-items:center;gap:0.75rem;}
+.sort-label{font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
+#sort-select{background:var(--navy-light);border:1px solid var(--gold-border);color:var(--text-muted);font-family:'Lato',sans-serif;font-size:12px;padding:0.5rem 1rem;cursor:pointer;outline:none;}
+#sort-select:focus{border-color:var(--gold);}
+.filter-toggle{display:flex;align-items:center;gap:0.5rem;background:transparent;border:1px solid var(--gold-border);color:var(--gold);font-family:'Lato',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:0.6rem 1.2rem;cursor:pointer;transition:all 0.2s;}
+.filter-toggle:hover{border-color:var(--gold);background:var(--gold-dim);}
+
+.filter-body{display:none;border:1px solid var(--gold-border);padding:1.5rem;margin-top:1rem;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2rem;}
+.filter-body.open{display:grid;}
+.filter-group-title{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:0.75rem;}
+.filter-checkboxes{display:flex;flex-direction:column;gap:0.5rem;}
+.fc-label{display:flex;align-items:center;gap:0.5rem;font-size:13px;color:var(--text-muted);cursor:pointer;}
+.fc-label input[type=checkbox]{accent-color:var(--gold);width:14px;height:14px;cursor:pointer;}
+.fc-label:hover{color:var(--text);}
+.price-inputs{display:flex;align-items:center;gap:0.5rem;}
+.price-inputs input{background:var(--navy-light);border:1px solid var(--gold-border);color:var(--text-muted);font-family:'Lato',sans-serif;font-size:12px;padding:0.4rem 0.6rem;width:80px;outline:none;}
+.price-inputs input:focus{border-color:var(--gold);}
+.filter-actions{grid-column:1/-1;display:flex;align-items:center;gap:1.5rem;padding-top:1rem;border-top:1px solid var(--gold-border);}
+.filter-reset{background:transparent;border:1px solid var(--gold-border);color:var(--text-muted);font-family:'Lato',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:0.5rem 1.2rem;cursor:pointer;transition:all 0.2s;}
+.filter-reset:hover{border-color:var(--gold);color:var(--gold);}
+
+.section-container { padding: 4rem 3rem; max-width: 1400px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-tag { font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; display: block;}
+.section-header h2 { font-family: 'Cinzel', serif; font-size: 28px; letter-spacing: 3px; }
+
+.offers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;}
+.offer-card{border:1px solid var(--gold-border);background:var(--navy-card);transition:all 0.3s;display:flex;flex-direction:column;position:relative;}
+.offer-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+.offer-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#0a1520;border-bottom:1px solid var(--gold-border);}
+.offer-body{padding:1.5rem;flex:1;display:flex;flex-direction:column;}
+.offer-top{display:flex;justify-content:space-between;margin-bottom:1rem;gap:1rem;}
+.offer-name{font-family:'Cinzel',serif;font-size:14px;color:var(--text);line-height:1.4;flex:1;}
+.offer-price{font-family:'Cinzel',serif;font-size:20px;color:var(--gold);white-space:nowrap;}
+.offer-specs{border-top:1px solid var(--gold-border);padding-top:1rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:0.5rem;}
+.spec-row{display:flex;justify-content:space-between;font-size:12px;align-items:center;}
+.spec-label{color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-size:10px;}
+.spec-value{color:var(--text-muted);}
+
+.offer-cta a{display:block;text-align:center;padding:0.8rem;border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:0.2s;}
+.offer-cta a:hover{background:var(--gold);color:var(--navy);}
+
+.contact{padding:5rem 3rem;text-align:center;background:var(--navy-light);border-top:1px solid var(--gold-border);}
+.contact h2{font-family:'Cinzel',serif;margin-bottom:1rem;}
+.contact p{color:var(--text-muted);margin-bottom:2rem;}
+
+.disclaimer-box { background: var(--navy-card); padding: 3rem; text-align: center; border-top: 1px solid var(--gold-border); }
+.disclaimer-text { font-size: 11px; color: var(--text-muted); line-height: 1.8; max-width: 800px; margin: 0 auto; letter-spacing: 0.5px; }
+
+footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--gold-border);}
+.footer-logo{font-family:'Cinzel',serif;color:var(--gold);letter-spacing:3px;}
+
+@media(max-width:768px){
+  .filter-section, .section-container{padding:3rem 1.2rem;}
+  .stats{flex-wrap:wrap;}
+  .stat{min-width:50%;border-bottom:1px solid var(--gold-border);}
+  .stat:nth-child(even){border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hunter of Bricks</div>
+  <ul class="nav-links">
+    <li><a href="#retro">Retro</a></li>
+    <li><a href="#nowe">Nowe</a></li>
+    <li><a href="#figurki">Figurki</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Kraków · Kolekcjonerskie LEGO®</p>
+  <h1>Hunter <span>of</span> Bricks</h1>
+  <p class="hero-desc">Unikatowe zestawy z lat 80. i 90. oraz fabrycznie nowe, wycofane z oficjalnej sprzedaży. Każdy element zweryfikowany z największą precyzją.</p>
+  <div>
+    <a href="#retro" class="btn" style="display:inline-block;padding:0.9rem 2.8rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:700;">Przeglądaj Skarby</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" id="stat-count">—</span><span class="stat-label">Unikatów</span></div>
+  <div class="stat"><span class="stat-num">Vintage</span><span class="stat-label">Specjalizacja</span></div>
+  <div class="stat"><span class="stat-num">Nowe</span><span class="stat-label">Wycofane</span></div>
+  <div class="stat"><span class="stat-num">Kraków</span><span class="stat-label">Odbiór osobisty</span></div>
+</div>
+
+<div class="filter-section">
+  <div class="filter-sort-bar">
+    <div class="left-controls">
+      <div class="sort-group">
+        <span class="sort-label">Sortuj:</span>
+        <select id="sort-select" onchange="applyFilters()">
+          <option value="default">Najtrafniejsze</option>
+          <option value="price-asc">Cena: od najtańszych</option>
+          <option value="price-desc">Cena: od najdroższych</option>
+          <option value="date-desc">Od najnowszych</option>
+          <option value="date-asc">Od najstarszych</option>
+        </select>
+      </div>
+    </div>
+    
+    <button class="filter-toggle" onclick="toggleFilters()">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 3h11M3 6.5h7M5 10h3" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Filtry</span>
+    </button>
+  </div>
+
+  <div class="filter-body" id="filter-body">
+    <div class="filter-group">
+      <div class="filter-group-title">Wybierz Motyw</div>
+      <div class="filter-checkboxes" id="fc-motyw">
+        </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Cena (zł)</div>
+      <div class="price-inputs">
+        <input type="number" id="price-min" placeholder="Od" oninput="applyFilters()">
+        <span style="color:var(--text-dim)">—</span>
+        <input type="number" id="price-max" placeholder="Do" oninput="applyFilters()">
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Opakowanie</div>
+      <div class="filter-checkboxes">
+        <label class="fc-label"><input type="checkbox" id="fc-box-tak" onchange="applyFilters()"> Dostępne</label>
+        <label class="fc-label"><input type="checkbox" id="fc-box-nie" onchange="applyFilters()"> Brak</label>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-group-title">Instrukcja</div>
+      <div class="filter-checkboxes">
+        <label class="fc-label"><input type="checkbox" id="fc-instr-tak" onchange="applyFilters()"> Dostępna</label>
+        <label class="fc-label"><input type="checkbox" id="fc-instr-nie" onchange="applyFilters()"> Brak</label>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button class="filter-reset" onclick="resetFilters()">Wyczyść filtry</button>
+    </div>
+  </div>
+</div>
+
+<section class="section-container" id="retro">
+  <div class="section-header">
+    <span class="section-tag">Kapsuła Czasu</span>
+    <h2>Klasyka & Retro</h2>
+  </div>
+  <div class="offers-grid" id="grid-retro"></div>
+</section>
+
+<section class="section-container" id="nowe" style="background: rgba(201,168,76,0.02);">
+  <div class="section-header">
+    <span class="section-tag">Wycofane ze sprzedaży</span>
+    <h2>Fabrycznie Nowe</h2>
+  </div>
+  <div class="offers-grid" id="grid-nowe"></div>
+</section>
+
+<section class="section-container" id="figurki">
+  <div class="section-header">
+    <span class="section-tag">Gablota Minifigurek</span>
+    <h2>Minifigurki</h2>
+  </div>
+  <div class="offers-grid" id="grid-figurki"></div>
+</section>
+
+<section class="contact" id="kontakt">
+  <h2>Masz pytania?</h2>
+  <p>Aby zapewnić Ci pełne bezpieczeństwo, całą komunikację i sprzedaż prowadzimy przez OLX.</p>
+  <a href="https://www.olx.pl/oferty/uzytkownik/1wLfx/" target="_blank" style="display:inline-block;padding:1rem 3rem;background:var(--gold);color:var(--navy);text-decoration:none;text-transform:uppercase;font-weight:700;letter-spacing:2px;">Napisz do nas na OLX</a>
+</section>
+
+<div class="disclaimer-box">
+  <p class="disclaimer-text">
+    LEGO® jest znakiem towarowym Grupy LEGO, która nie sponsoruje, nie autoryzuje ani nie popiera tej strony. Nie jesteśmy oficjalnie powiązani z Grupą LEGO. Grupa LEGO w żaden sposób nie jest zaangażowana w nasze działania, ani za nie odpowiedzialna.
+  </p>
+</div>
+
+<footer>
+  <div class="footer-logo">Hunter of Bricks</div>
+  <div class="footer-copy">© 2026 hunterofbricks.pl</div>
+</footer>
+
+<script>
+const REBRICKABLE_KEY = "0ed84dcab12396601d4d281d038e22c6";
+const SHEET_ID = "1tFGIgoFMlnE-qryWbtgOtxjkISh0K6P1tkYfb6kVoyQ";
+
+let allOffers = [];
+
+function toggleFilters() {
+  document.getElementById('filter-body').classList.toggle('open');
+}
+
+function renderCard(offer) {
+  const displayImg = offer.zdjecie || (offer.apiData ? offer.apiData.img : '');
+  const imgHTML = displayImg ? `<img class="offer-thumb" src="${displayImg}" alt="${offer.numer}" loading="lazy">` : `<div class="offer-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:10px;">Ładowanie...</div>`;
+  const nazwa = offer.apiData ? offer.apiData.nazwa : (offer.typ === 'fig' ? 'Minifigurka ' + offer.numer : 'Zestaw ' + offer.numer);
+  
+  let specsHTML = '';
+
+  if (offer.typ === 'fig') {
+    specsHTML = `
+      <div class="spec-row"><span class="spec-label">Kod</span><span class="spec-value">${offer.numer}</span></div>
+      <div class="spec-row"><span class="spec-label">Motyw</span><span class="spec-value">${offer.motyw || '—'}</span></div>
+      <div class="spec-row"><span class="spec-label">Stan</span><span class="spec-value">${offer.stan || '—'}</span></div>
+    `;
+  } else {
+    const isNew = (offer.kategoria || '').toLowerCase().trim() === 'nowe' || (offer.kategoria || '').toLowerCase().trim() === 'new';
+    let boxInstrHTML = '';
+    
+    if (!isNew) {
+      const maOpakowanie = (offer.opakowanie || '').toLowerCase().trim();
+      const txtOpakowanie = (maOpakowanie === 'tak' || maOpakowanie === 'dostępne' || maOpakowanie === 'dostępna') ? 'Dostępne' : 'Brak';
+      
+      const maInstrukcje = (offer.instrukcja || '').toLowerCase().trim();
+      const txtInstrukcja = (maInstrukcje === 'tak' || maInstrukcje === 'dostępna' || maInstrukcje === 'dostępne') ? 'Dostępna' : 'Brak';
+
+      boxInstrHTML = `
+        <div class="spec-row"><span class="spec-label">Opakowanie</span><span class="spec-value">${txtOpakowanie}</span></div>
+        <div class="spec-row"><span class="spec-label">Instrukcja</span><span class="spec-value">${txtInstrukcja}</span></div>
+      `;
+    }
+
+    specsHTML = `
+      <div class="spec-row"><span class="spec-label">Numer</span><span class="spec-value">${offer.numer}</span></div>
+      <div class="spec-row"><span class="spec-label">Motyw</span><span class="spec-value">${offer.motyw || '—'}</span></div>
+      <div class="spec-row"><span class="spec-label">Klocki</span><span class="spec-value">${offer.apiData && offer.apiData.klocki ? offer.apiData.klocki : '—'}</span></div>
+      <div class="spec-row"><span class="spec-label">Stan</span><span class="spec-value">${offer.stan || '—'}</span></div>
+      ${boxInstrHTML}
+    `;
+  }
+
+  return `
+    <div class="offer-card">
+      ${imgHTML}
+      <div class="offer-body">
+        <div class="offer-top">
+          <div class="offer-name">${nazwa}</div>
+          <div class="offer-price">${offer.cena} zł</div>
+        </div>
+        <div class="offer-specs">${specsHTML}</div>
+        <div class="offer-cta"><a href="${offer.link}" target="_blank">Zobacz na OLX →</a></div>
+      </div>
+    </div>
+  `;
+}
+
+function buildThemeFilters() {
+  const themes = [...new Set(allOffers.map(o => o.motyw).filter(m => m && m.trim() !== ''))].sort();
+  document.getElementById('fc-motyw').innerHTML = themes.map(t =>
+    `<label class="fc-label"><input type="checkbox" value="${t}" onchange="applyFilters()"> ${t}</label>`
+  ).join('');
+}
+
+function resetFilters() {
+  document.querySelectorAll('.filter-body input[type=checkbox]').forEach(i => i.checked = false);
+  document.getElementById('price-min').value = '';
+  document.getElementById('price-max').value = '';
+  document.getElementById('sort-select').value = 'default';
+  applyFilters();
+}
+
+function applyFilters() {
+  const sort = document.getElementById('sort-select').value;
+  const motywy = [...document.querySelectorAll('#fc-motyw input:checked')].map(i => i.value);
+  const priceMin = parseFloat(document.getElementById('price-min').value) || 0;
+  const priceMax = parseFloat(document.getElementById('price-max').value) || Infinity;
+  
+  const boxTak = document.getElementById('fc-box-tak').checked;
+  const boxNie = document.getElementById('fc-box-nie').checked;
+  const instrTak = document.getElementById('fc-instr-tak').checked;
+  const instrNie = document.getElementById('fc-instr-nie').checked;
+
+  let filtered = allOffers.filter(o => {
+    if (motywy.length && !motywy.includes(o.motyw)) return false;
+
+    const cena = parseFloat((o.cena||'0').toString().replace(',','.'));
+    if (!isNaN(cena) && (cena < priceMin || cena > priceMax)) return false;
+
+    if (o.typ === 'set' && (o.kategoria.toLowerCase().trim() === 'retro' || o.kategoria.toLowerCase().trim() === 'used')) {
+      const maOpak = (o.opakowanie || '').toLowerCase().trim();
+      const hasBox = (maOpak === 'tak' || maOpak === 'dostępne' || maOpak === 'dostępna');
+      
+      if (boxTak && !boxNie && !hasBox) return false;
+      if (boxNie && !boxTak && hasBox) return false;
+
+      const maInstr = (o.instrukcja || '').toLowerCase().trim();
+      const hasInstr = (maInstr === 'tak' || maInstr === 'dostępna' || maInstr === 'dostępne');
+
+      if (instrTak && !instrNie && !hasInstr) return false;
+      if (instrNie && !instrTak && hasInstr) return false;
+    }
+
+    return true;
+  });
+
+  if (sort === 'price-asc') {
+    filtered.sort((a,b) => parseFloat((a.cena||'0').toString().replace(',','.')) - parseFloat((b.cena||'0').toString().replace(',','.')));
+  } else if (sort === 'price-desc') {
+    filtered.sort((a,b) => parseFloat((b.cena||'0').toString().replace(',','.')) - parseFloat((a.cena||'0').toString().replace(',','.')));
+  } else if (sort === 'date-desc') {
+    filtered.sort((a,b) => b._idx - a._idx);
+  } else if (sort === 'date-asc') {
+    filtered.sort((a,b) => a._idx - b._idx);
+  } else if (sort === 'default') {
+    let byPrice = [...filtered].sort((a,b) => parseFloat((b.cena||'0').toString().replace(',','.')) - parseFloat((a.cena||'0').toString().replace(',','.')));
+    let byOldest = [...filtered].sort((a,b) => a._idx - b._idx);
+    
+    let mixed = [];
+    let added = new Set();
+    let pIdx = 0, oIdx = 0;
+    
+    while(mixed.length < filtered.length) {
+      if (pIdx < byPrice.length) {
+        let item = byPrice[pIdx++];
+        if (!added.has(item._idx)) { mixed.push(item); added.add(item._idx); }
+      }
+      if (oIdx < byOldest.length) {
+        let item = byOldest[oIdx++];
+        if (!added.has(item._idx)) { mixed.push(item); added.add(item._idx); }
+      }
+    }
+    filtered = mixed;
+  }
+
+  const retroOffers = filtered.filter(o => o.typ === 'set' && (o.kategoria.toLowerCase().trim() === 'retro' || o.kategoria.toLowerCase().trim() === 'used'));
+  const noweOffers = filtered.filter(o => o.typ === 'set' && (o.kategoria.toLowerCase().trim() === 'nowe' || o.kategoria.toLowerCase().trim() === 'new'));
+  const figurkiOffers = filtered.filter(o => o.typ === 'fig');
+
+  document.getElementById('grid-retro').innerHTML = retroOffers.length ? retroOffers.map(renderCard).join('') : '<p style="color:var(--text-dim);grid-column:1/-1;">Brak zestawów spełniających kryteria.</p>';
+  document.getElementById('grid-nowe').innerHTML = noweOffers.length ? noweOffers.map(renderCard).join('') : '<p style="color:var(--text-dim);grid-column:1/-1;">Brak zestawów spełniających kryteria.</p>';
+  document.getElementById('grid-figurki').innerHTML = figurkiOffers.length ? figurkiOffers.map(renderCard).join('') : '<p style="color:var(--text-dim);grid-column:1/-1;">Brak figurek spełniających kryteria.</p>';
+}
+
+async function loadOffers() {
+  try {
+    const [setsRes, figsRes] = await Promise.all([
+      fetch(`https://opensheet.elk.sh/${SHEET_ID}/Sklep`),
+      fetch(`https://opensheet.elk.sh/${SHEET_ID}/Figurki`)
+    ]);
+
+    const sets = setsRes.ok ? await setsRes.json() : [];
+    const figs = figsRes.ok ? await figsRes.json() : [];
+
+    // Mapowanie zdjęć dla figurek - szukamy pod różnymi nazwami kolumn dla bezpieczeństwa
+    allOffers = [
+      ...sets.map((r, i) => ({ ...r, _idx: i, numer: r['Numer setu'], typ: 'set', kategoria: r['Kategoria'] || '', zdjecie: r['Zdjęcie'] || r['Zdjecie'] || r['zdjęcie'] || r['zdjecie'], instrukcja: r['Instrukcja'], opakowanie: r['Oryginalne opakowanie'], cena: r['Cena'], stan: r['Stan'], motyw: r['Motyw'], link: r['Link OLX'] || 'https://www.olx.pl/oferty/uzytkownik/1wLfx/' })),
+      ...figs.map((r, i) => ({ ...r, _idx: i + 1000, numer: r['Numer'], typ: 'fig', kategoria: 'figurka', zdjecie: r['Zdjęcie'] || r['Zdjecie'] || r['zdjęcie'] || r['zdjecie'], cena: r['Cena'], stan: r['Stan'], motyw: r['Motyw'], link: r['Link OLX'] || 'https://www.olx.pl/oferty/uzytkownik/1wLfx/' }))
+    ];
+
+    document.getElementById('stat-count').textContent = allOffers.length + '+';
+
+    buildThemeFilters();
+    applyFilters();
+
+    for (let offer of allOffers) {
+      if (!offer.apiData) {
+        if (offer.typ === 'set') {
+          try {
+            const cleanNum = offer.numer.toString().trim().replace(/\s+/g, '');
+            const r = await fetch(`https://rebrickable.com/api/v3/lego/sets/${cleanNum}-1/?key=${REBRICKABLE_KEY}`);
+            if (r.ok) {
+                const d = await r.json();
+                offer.apiData = { nazwa: d.name, klocki: d.num_parts, img: d.set_img_url };
+                applyFilters();
+            }
+          } catch(e) {}
+        } else {
+          try {
+            const cleanFigNum = offer.numer.toString().trim().replace(/\s+/g, '');
+            const r = await fetch(`https://rebrickable.com/api/v3/lego/minifigs/${cleanFigNum}/?key=${REBRICKABLE_KEY}`);
+            if (r.ok) {
+                const d = await r.json();
+                offer.apiData = { nazwa: d.name, img: d.set_img_url };
+                applyFilters();
+            }
+          } catch(e) {}
+        }
+        await new Promise(res => setTimeout(res, 200)); 
+      }
+    }
+  } catch(e) {
+    console.error("Błąd połączenia z Arkuszem Google:", e);
+  }
+}
+
+loadOffers();
+</script>
+</body>
+</html>
