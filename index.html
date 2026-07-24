@@ -267,14 +267,13 @@ function renderCard(offer) {
   const displayImg = offer.zdjecie;
   const imgHTML = displayImg ? `<img class="offer-thumb" src="${displayImg}" alt="${offer.numer}" loading="lazy">` : `<div class="offer-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:10px;">Brak zdjęcia</div>`;
   
-  // Nazwa zestawu/figurki z Arkusza lub domyślna
+  // Nazwa zestawu/figurki
   const nazwa = offer.nazwa ? `${offer.numer} — ${offer.nazwa}` : (offer.typ === 'fig' ? 'Minifigurka ' + offer.numer : 'Zestaw ' + offer.numer);
   
   let specsHTML = '';
 
   if (offer.typ === 'fig') {
     specsHTML = `
-      <div class="spec-row"><span class="spec-label">Kod</span><span class="spec-value">${offer.numer}</span></div>
       <div class="spec-row"><span class="spec-label">Motyw</span><span class="spec-value">${offer.motyw || '—'}</span></div>
       <div class="spec-row"><span class="spec-label">Stan</span><span class="spec-value">${offer.stan || '—'}</span></div>
     `;
@@ -295,13 +294,17 @@ function renderCard(offer) {
       `;
     }
 
-    // Dodano wyświetlanie Roku oraz Liczby klocków
     const rokHTML = offer.rok ? ` (${offer.rok} r.)` : '';
+    
+    // Formatowanie Klocków i Figurek
+    let klockiVal = offer.klocki || '—';
+    if (offer.figurki && offer.figurki !== '0' && offer.figurki !== 0) {
+      klockiVal += ` (${offer.figurki} fig.)`;
+    }
 
     specsHTML = `
-      <div class="spec-row"><span class="spec-label">Numer</span><span class="spec-value">${offer.numer}</span></div>
       <div class="spec-row"><span class="spec-label">Motyw</span><span class="spec-value">${offer.motyw || '—'}${rokHTML}</span></div>
-      <div class="spec-row"><span class="spec-label">Klocki</span><span class="spec-value">${offer.klocki || '—'}</span></div>
+      <div class="spec-row"><span class="spec-label">Klocki</span><span class="spec-value">${klockiVal}</span></div>
       <div class="spec-row"><span class="spec-label">Stan</span><span class="spec-value">${offer.stan || '—'}</span></div>
       ${boxInstrHTML}
     `;
@@ -374,7 +377,7 @@ function applyFilters() {
   if (sort === 'price-asc') {
     filtered.sort((a,b) => parseFloat((a.cena||'0').toString().replace(',','.')) - parseFloat((b.cena||'0').toString().replace(',','.')));
   } else if (sort === 'price-desc') {
-    filtered.sort((a,b) => parseFloat((b.cena||'0').toString().replace(',','.')) - parseFloat((b.cena||'0').toString().replace(',','.')));
+    filtered.sort((a,b) => parseFloat((b.cena||'0').toString().replace(',','.')) - parseFloat((a.cena||'0').toString().replace(',','.')));
   } else if (sort === 'date-desc') {
     filtered.sort((a,b) => b._idx - a._idx);
   } else if (sort === 'date-asc') {
@@ -435,6 +438,7 @@ async function loadOffers() {
         nazwa: r['Nazwa'], 
         rok: r['Rok'], 
         klocki: r['Klocki'], 
+        figurki: r['Figurki'],
         link: r['Link Allegro'] || r['Link OLX'] || '#' 
       })),
       ...figs.map((r, i) => ({ 
