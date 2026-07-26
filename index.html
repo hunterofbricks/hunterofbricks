@@ -107,7 +107,7 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .stat:nth-child(even){border-right:none;}
 }
   /* ==========================================
-   PERFEKCYJNA POPRAWKA MOBILNA (DLA IPHONE'ÓW I SMARTFONÓW)
+   EKSKLUZYWNA POPRAWKA NAGŁÓWKA I STOPKI DLA MOBILE
    ========================================== */
 html, body {
   overflow-x: hidden !important;
@@ -117,54 +117,41 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* NAWIGACJA GÓRNA */
-  header, .header-inner, nav, .nav-container {
-    flex-direction: column !important;
-    align-items: center !important;
+  /* 1. UKRYWAMY MAŁE LOGO ORAZ IKONY SOCIAL Z GÓRNEGO PASKA NA TELEFONIE */
+  header .logo, 
+  header .logo-text, 
+  header .social-icons, 
+  header .nav-social, 
+  header a[href*="instagram"], 
+  header a[href*="facebook"], 
+  header .nav-divider, 
+  header .divider {
+    display: none !important;
+  }
+
+  /* 2. CZYSTY, JEDNOLINIJKOWY PASEK NAWIGACJI U GÓRY */
+  header, .header-inner, nav, .nav-container, .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
     justify-content: center !important;
-    padding: 12px 8px !important;
+    align-items: center !important;
     width: 100% !important;
+    padding: 14px 5px !important;
+    gap: 12px !important;
     box-sizing: border-box !important;
   }
 
-  /* Logo nawigacji na samej górze */
-  .logo-text, header .logo {
-    font-size: 14px !important;
-    letter-spacing: 2px !important;
-    margin-bottom: 8px !important;
-    text-align: center !important;
-  }
-
-  /* Kontener z linkami w nawigacji */
-  .nav-links, nav {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 8px 12px !important;
-    width: 100% !important;
-  }
-
-  /* Linki w menu: mniejszy font, zero rozpychania */
+  /* 3. FORMATOWANIE 4 LINKÓW - MIESZCZĄ SIĘ W 1 LINII NA KAŻDYM IPHONE */
   nav a, .nav-links a {
-    font-size: 10px !important;
-    letter-spacing: 1px !important;
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
     padding: 4px 6px !important;
     margin: 0 !important;
     white-space: nowrap !important;
+    text-transform: uppercase !important;
   }
 
-  /* Ukrywamy ikony społecznościowe w górnym pasku na telefonie, żeby nie zapychały miejsca */
-  header .social-icons, header .nav-social, header a[href*="instagram"], header a[href*="facebook"] {
-    display: none !important;
-  }
-
-  /* Pasek pionowy separatora w menu też ukrywamy na mobile */
-  header .nav-divider, header .divider {
-    display: none !important;
-  }
-
-  /* STOPKA (FOOTER) - ELEGANTKI UKŁAD W PIONIE */
+  /* 4. STOPKA (FOOTER) - ELEGANTKI UKŁAD W PIONIE */
   footer, .footer-container, .footer-inner {
     flex-direction: column !important;
     align-items: center !important;
@@ -176,12 +163,10 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Logo w stopce */
   footer .footer-logo, footer .logo {
     margin: 0 auto !important;
   }
 
-  /* Środkowa sekcja w stopce (Social & RODO) */
   footer .footer-center, footer .footer-links, footer .social-links {
     display: flex !important;
     flex-direction: row !important;
@@ -196,7 +181,6 @@ html, body {
     font-size: 11px !important;
   }
 
-  /* Copyright na samym dole */
   footer .footer-copy, footer .copyright {
     font-size: 10px !important;
     opacity: 0.7;
