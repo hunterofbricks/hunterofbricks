@@ -107,113 +107,116 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .stat:nth-child(even){border-right:none;}
 }
   /* ==========================================
-   PERFEKCYJNY NAGŁÓWEK DLA MOBILE (BEZ LEWEGO LOGO + SOCIAL POD SPODEM)
+   PANCERNA POPRAWKA NAGŁÓWKA I STOPKI (MOBILE)
    ========================================== */
 html, body {
   overflow-x: hidden !important;
   max-width: 100vw !important;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 @media (max-width: 768px) {
-  /* 1. CAŁKOWICIE UKRYWAMY BRAND/LOGO Z GÓRNEGO PASKA NA TELEFONIE */
-  header .brand,
-  header .logo,
-  header .logo-text,
-  header a.brand,
-  header .nav-divider,
-  header .divider {
-    display: none !important;
-  }
-
-  /* 2. KONTENER PASEK NAWIGACJI - UKŁAD W PIONIE (LINKI U GÓRY, IKONY NA DOLE) */
-  header, .header-inner, nav, .nav-container {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    padding: 12px 10px !important;
-    gap: 10px !important;
+  /* 1. RESET USTAWIENIA CAŁEGO NAGŁÓWKA */
+  header, header * {
     box-sizing: border-box !important;
   }
 
-  /* 3. LINKI MENU (RETRO, NOWE, FIGURKI, KONTAKT) - WIERSZ 1 */
-  .nav-links, nav {
+  header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 12px 5px !important;
+  }
+
+  /* 2. UKRYWAMY TEKST/LOGO PO LEWEJ ORAZ WSZELKIE SEPARATORY (KRESKI) */
+  /* Szukamy pierwszego linku lub elementu z nazwa marki i go ukrywamy */
+  header > div, header nav, header .container, header .nav-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* Ukrywamy wszystko co jest tekstem logo w nagłówku (np. OF BRICKS) */
+  header [class*="logo"], 
+  header [class*="brand"], 
+  header [class*="title"],
+  header [class*="divider"],
+  header span {
+    display: none !important;
+  }
+
+  /* 3. LINKI MENU (RETRO, NOWE, FIGURKI, KONTAKT) - WYŚRODKOWANY JEDEN WIERSZ */
+  header nav, header .links, header .nav-links {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 8px !important;
     width: 100% !important;
+    margin: 0 auto !important;
   }
 
-  nav a, .nav-links a {
-    font-size: 11px !important;
+  /* Formatowanie konkretnie linków nawigacyjnych */
+  header a:not([href*="instagram"]):not([href*="facebook"]) {
+    font-size: 10px !important;
     letter-spacing: 1px !important;
-    padding: 2px 4px !important;
+    padding: 3px 5px !important;
     margin: 0 !important;
     white-space: nowrap !important;
     text-transform: uppercase !important;
   }
 
-  /* 4. IKONY FB I IG - WIERSZ 2 (WYŚRODKOWANE POD MENU) */
-  header .social-icons, 
-  header .nav-social,
-  header .socials {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 18px !important;
-    width: 100% !important;
-    margin-top: 2px !important;
-  }
-
-  header .social-icons a, 
-  header .nav-social a,
-  header .socials a {
+  /* 4. IKONY FB I IG - POD SPODEM W DRUGIEJ LINII */
+  header a[href*="instagram"], 
+  header a[href*="facebook"],
+  header [class*="social"] {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  /* STOPKA (FOOTER) */
-  footer, .footer-container, .footer-inner {
+  /* Kontener na ikony social w nagłówku */
+  header [class*="social"] {
+    flex-direction: row !important;
+    gap: 15px !important;
+    margin-top: 6px !important;
+  }
+
+  /* 5. STOPKA - UKŁAD W PIONIE */
+  footer, footer * {
+    box-sizing: border-box !important;
+  }
+
+  footer {
+    display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    gap: 16px !important;
-    padding: 30px 15px !important;
+    gap: 12px !important;
+    padding: 25px 15px !important;
     width: 100% !important;
-    box-sizing: border-box !important;
   }
 
-  footer .footer-logo, footer .logo {
-    margin: 0 auto !important;
-  }
-
-  footer .footer-center, footer .footer-links, footer .social-links {
+  footer div, footer section {
     display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 15px !important;
+    gap: 10px !important;
     width: 100% !important;
   }
 
-  footer a {
-    font-size: 11px !important;
-  }
-
-  footer .footer-copy, footer .copyright {
-    font-size: 10px !important;
-    opacity: 0.7;
-    margin-top: 5px !important;
+  footer div[class*="social"], footer div[class*="links"] {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
   }
 }
 </style>
