@@ -120,12 +120,13 @@ html, body {
   /* NAWIGACJA GÓRNA */
   nav {
     flex-direction: row !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 12px 8px !important;
+    padding: 10px 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    overflow-x: auto !important;
   }
 
   /* Chowamy napis "Hunter of Bricks" w nagłówku na mobile */
@@ -133,26 +134,28 @@ html, body {
     display: none !important;
   }
 
-  /* Kontener trzymający linki + ikony IG/FB */
+  /* Kontener trzymający linki + ikony IG/FB - jedna linia */
   nav > div {
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     justify-content: center !important;
-    gap: 10px 14px !important;
-    width: 100% !important;
+    align-items: center !important;
+    gap: 6px 8px !important;
+    width: auto !important;
   }
 
-  /* Lista linków */
+  /* Lista linków - jedna linia */
   .nav-links {
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     justify-content: center !important;
-    gap: 8px 12px !important;
-    width: 100% !important;
+    align-items: center !important;
+    gap: 6px 8px !important;
+    width: auto !important;
   }
 
   .nav-links a {
-    font-size: 10px !important;
-    letter-spacing: 1px !important;
-    padding: 4px 6px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.5px !important;
+    padding: 4px 3px !important;
     margin: 0 !important;
     white-space: nowrap !important;
   }
@@ -162,7 +165,17 @@ html, body {
     display: none !important;
   }
 
-  /* Ikony IG/FB w nagłówku zostają widoczne - bez ukrywania */
+  /* Separator przed ikonami - mniejszy odstęp */
+  nav > div > div {
+    padding-left: 8px !important;
+    gap: 6px !important;
+  }
+
+  /* Ikony IG/FB - mniejszy rozmiar, żeby zmieściły się w linii */
+  nav > div > div svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
 
   /* STOPKA (FOOTER) - ELEGANCKI UKŁAD W PIONIE */
   footer {
@@ -176,7 +189,6 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Logo w stopce */
   .footer-logo {
     margin: 0 auto !important;
   }
@@ -185,7 +197,6 @@ html, body {
     font-size: 11px !important;
   }
 
-  /* Copyright na samym dole */
   .footer-copy {
     font-size: 10px !important;
     opacity: 0.7;
