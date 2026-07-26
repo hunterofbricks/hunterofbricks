@@ -441,7 +441,14 @@ async function loadOffers() {
         klocki: r['Klocki'], 
         figurki: r['Figurki'],
         dostepny: r['Dostępny'],
-        link: r['Link Allegro'] || r['Link OLX'] || '#' 
+        link: (() => {
+          let l = r['Link Allegro'] || r['Link OLX'] || '#';
+          if (l !== '#' && l.includes('allegro.pl')) {
+            const separator = l.includes('?') ? '&' : '?';
+            return l + separator + 'utm_source=hunterofbricks&utm_medium=zestaw&utm_campaign=' + r['Numer setu'];
+          }
+          return l;
+        })()
       })).filter(r => r.dostepny != '0' && r.dostepny !== 0),
       ...figs.map((r, i) => ({ 
         ...r, 
