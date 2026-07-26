@@ -320,7 +320,7 @@ function renderCard(offer) {
           <div class="offer-price">${offer.cena} zł</div>
         </div>
         <div class="offer-specs">${specsHTML}</div>
-        <div class="offer-cta"><a href="${offer.link}" target="_blank">Zobacz na Allegro →</a></div>
+        <div class="offer-cta"><a href="${offer.link}" target="_blank" data-umami-event="Kliknięcie Allegro" data-umami-event-zestaw="${offer.numer}">Zobacz na Allegro →</a></div>
       </div>
     </div>
   `;
