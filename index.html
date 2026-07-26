@@ -440,8 +440,9 @@ async function loadOffers() {
         rok: r['Rok'], 
         klocki: r['Klocki'], 
         figurki: r['Figurki'],
+        dostepny: r['Dostępny'],
         link: r['Link Allegro'] || r['Link OLX'] || '#' 
-      })),
+      })).filter(r => r.dostepny != '0' && r.dostepny !== 0),
       ...figs.map((r, i) => ({ 
         ...r, 
         _idx: i + 1000, 
@@ -452,9 +453,10 @@ async function loadOffers() {
         cena: r['Cena'], 
         stan: r['Stan'], 
         motyw: r['Motyw'], 
-        nazwa: r['Nazwa'], 
+        nazwa: r['Nazwa'],
+        dostepny: r['Dostępny'],
         link: r['Link Allegro'] || r['Link OLX'] || '#' 
-      }))
+      })).filter(r => r.dostepny != '0' && r.dostepny !== 0),
     ];
 
     document.getElementById('stat-count').textContent = allOffers.length + '+';
