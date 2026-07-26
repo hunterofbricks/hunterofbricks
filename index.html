@@ -107,7 +107,7 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .stat:nth-child(even){border-right:none;}
 }
   /* ==========================================
-   PANCERNA POPRAWKA NAGŁÓWKA I STOPKI (MOBILE)
+   OSTATECZNA POPRAWKA NAGŁÓWKA NA TELEFON
    ========================================== */
 html, body {
   overflow-x: hidden !important;
@@ -117,106 +117,49 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* 1. RESET USTAWIENIA CAŁEGO NAGŁÓWKA */
-  header, header * {
-    box-sizing: border-box !important;
-  }
-
-  header {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    padding: 12px 5px !important;
-  }
-
-  /* 2. UKRYWAMY TEKST/LOGO PO LEWEJ ORAZ WSZELKIE SEPARATORY (KRESKI) */
-  /* Szukamy pierwszego linku lub elementu z nazwa marki i go ukrywamy */
-  header > div, header nav, header .container, header .nav-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-
-  /* Ukrywamy wszystko co jest tekstem logo w nagłówku (np. OF BRICKS) */
-  header [class*="logo"], 
-  header [class*="brand"], 
-  header [class*="title"],
-  header [class*="divider"],
-  header span {
+  /* 1. USUWAMY NAPIS "HUNTER OF BRICKS" Z NAGŁÓWKA NA TELEFONIE */
+  header > *:first-child,
+  header .brand,
+  header .logo,
+  header a:first-child:not(nav a) {
     display: none !important;
   }
 
-  /* 3. LINKI MENU (RETRO, NOWE, FIGURKI, KONTAKT) - WYŚRODKOWANY JEDEN WIERSZ */
-  header nav, header .links, header .nav-links {
+  /* 2. WYŚRODKOWANIE PASEK NAWIGACJI */
+  header, nav, .nav-container, .header-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 14px 5px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3. SAME PRZYCISKI - RETRO, NOWE, FIGURKI, KONTAKT */
+  nav, .nav-links {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 12px !important;
     width: 100% !important;
-    margin: 0 auto !important;
   }
 
-  /* Formatowanie konkretnie linków nawigacyjnych */
-  header a:not([href*="instagram"]):not([href*="facebook"]) {
-    font-size: 10px !important;
-    letter-spacing: 1px !important;
-    padding: 3px 5px !important;
+  nav a, .nav-links a, header a {
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
+    padding: 2px 4px !important;
     margin: 0 !important;
     white-space: nowrap !important;
     text-transform: uppercase !important;
   }
 
-  /* 4. IKONY FB I IG - POD SPODEM W DRUGIEJ LINII */
-  header a[href*="instagram"], 
-  header a[href*="facebook"],
-  header [class*="social"] {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* Kontener na ikony social w nagłówku */
-  header [class*="social"] {
-    flex-direction: row !important;
-    gap: 15px !important;
-    margin-top: 6px !important;
-  }
-
-  /* 5. STOPKA - UKŁAD W PIONIE */
-  footer, footer * {
-    box-sizing: border-box !important;
-  }
-
-  footer {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    gap: 12px !important;
-    padding: 25px 15px !important;
-    width: 100% !important;
-  }
-
-  footer div, footer section {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-
-  footer div[class*="social"], footer div[class*="links"] {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    gap: 15px !important;
+  /* Wyłączamy pionowe kreski/separatory, jeśli jakieś były */
+  header .divider, header .nav-divider, header span:not(nav span) {
+    display: none !important;
   }
 }
 </style>
