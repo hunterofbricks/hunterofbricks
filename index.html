@@ -118,7 +118,7 @@ html, body {
 
 @media (max-width: 768px) {
   /* NAWIGACJA GÓRNA */
-  header, .header-inner, nav, .nav-container {
+  nav {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     align-items: center !important;
@@ -128,23 +128,28 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Chowamy logo/nazwę w nagłówku na mobile – zostaje sam pasek linków */
-  .logo-text, header .logo {
+  /* Chowamy napis "Hunter of Bricks" w nagłówku na mobile */
+  .nav-logo {
     display: none !important;
   }
 
-  /* Kontener z linkami w nawigacji */
-  .nav-links, nav {
-    display: flex !important;
+  /* Kontener trzymający linki + ikony IG/FB */
+  nav > div {
     flex-wrap: wrap !important;
     justify-content: center !important;
-    align-items: center !important;
+    gap: 10px 14px !important;
+    width: 100% !important;
+  }
+
+  /* Lista linków */
+  .nav-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
     gap: 8px 12px !important;
     width: 100% !important;
   }
 
-  /* Linki w menu: mniejszy font, zero rozpychania */
-  nav a, .nav-links a {
+  .nav-links a {
     font-size: 10px !important;
     letter-spacing: 1px !important;
     padding: 4px 6px !important;
@@ -152,18 +157,15 @@ html, body {
     white-space: nowrap !important;
   }
 
-  /* Ukrywamy ikony społecznościowe w górnym pasku na telefonie, żeby nie zapychały miejsca */
-  header .social-icons, header .nav-social, header a[href*="instagram"], header a[href*="facebook"] {
+  /* Chowamy tylko link KONTAKT */
+  .nav-links a[href="#kontakt"] {
     display: none !important;
   }
 
-  /* Pasek pionowy separatora w menu też ukrywamy na mobile */
-  header .nav-divider, header .divider {
-    display: none !important;
-  }
+  /* Ikony IG/FB w nagłówku zostają widoczne - bez ukrywania */
 
-  /* STOPKA (FOOTER) - ELEGANTKI UKŁAD W PIONIE */
-  footer, .footer-container, .footer-inner {
+  /* STOPKA (FOOTER) - ELEGANCKI UKŁAD W PIONIE */
+  footer {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
@@ -175,19 +177,8 @@ html, body {
   }
 
   /* Logo w stopce */
-  footer .footer-logo, footer .logo {
+  .footer-logo {
     margin: 0 auto !important;
-  }
-
-  /* Środkowa sekcja w stopce (Social & RODO) */
-  footer .footer-center, footer .footer-links, footer .social-links {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 15px !important;
-    width: 100% !important;
   }
 
   footer a {
@@ -195,7 +186,7 @@ html, body {
   }
 
   /* Copyright na samym dole */
-  footer .footer-copy, footer .copyright {
+  .footer-copy {
     font-size: 10px !important;
     opacity: 0.7;
     margin-top: 5px !important;
