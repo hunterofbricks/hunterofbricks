@@ -107,7 +107,7 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .stat:nth-child(even){border-right:none;}
 }
   /* ==========================================
-   EKSKLUZYWNA POPRAWKA NAGŁÓWKA I STOPKI DLA MOBILE
+   PERFEKCYJNY NAGŁÓWEK DLA MOBILE (BEZ LEWEGO LOGO + SOCIAL POD SPODEM)
    ========================================== */
 html, body {
   overflow-x: hidden !important;
@@ -117,41 +117,70 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* 1. UKRYWAMY MAŁE LOGO ORAZ IKONY SOCIAL Z GÓRNEGO PASKA NA TELEFONIE */
-  header .logo, 
-  header .logo-text, 
-  header .social-icons, 
-  header .nav-social, 
-  header a[href*="instagram"], 
-  header a[href*="facebook"], 
-  header .nav-divider, 
+  /* 1. CAŁKOWICIE UKRYWAMY BRAND/LOGO Z GÓRNEGO PASKA NA TELEFONIE */
+  header .brand,
+  header .logo,
+  header .logo-text,
+  header a.brand,
+  header .nav-divider,
   header .divider {
     display: none !important;
   }
 
-  /* 2. CZYSTY, JEDNOLINIJKOWY PASEK NAWIGACJI U GÓRY */
-  header, .header-inner, nav, .nav-container, .nav-links {
+  /* 2. KONTENER PASEK NAWIGACJI - UKŁAD W PIONIE (LINKI U GÓRY, IKONY NA DOLE) */
+  header, .header-inner, nav, .nav-container {
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
-    padding: 14px 5px !important;
-    gap: 12px !important;
+    padding: 12px 10px !important;
+    gap: 10px !important;
     box-sizing: border-box !important;
   }
 
-  /* 3. FORMATOWANIE 4 LINKÓW - MIESZCZĄ SIĘ W 1 LINII NA KAŻDYM IPHONE */
+  /* 3. LINKI MENU (RETRO, NOWE, FIGURKI, KONTAKT) - WIERSZ 1 */
+  .nav-links, nav {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
   nav a, .nav-links a {
     font-size: 11px !important;
-    letter-spacing: 1.5px !important;
-    padding: 4px 6px !important;
+    letter-spacing: 1px !important;
+    padding: 2px 4px !important;
     margin: 0 !important;
     white-space: nowrap !important;
     text-transform: uppercase !important;
   }
 
-  /* 4. STOPKA (FOOTER) - ELEGANTKI UKŁAD W PIONIE */
+  /* 4. IKONY FB I IG - WIERSZ 2 (WYŚRODKOWANE POD MENU) */
+  header .social-icons, 
+  header .nav-social,
+  header .socials {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 18px !important;
+    width: 100% !important;
+    margin-top: 2px !important;
+  }
+
+  header .social-icons a, 
+  header .nav-social a,
+  header .socials a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* STOPKA (FOOTER) */
   footer, .footer-container, .footer-inner {
     flex-direction: column !important;
     align-items: center !important;
