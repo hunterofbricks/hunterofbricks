@@ -107,59 +107,100 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:
   .stat:nth-child(even){border-right:none;}
 }
   /* ==========================================
-   OSTATECZNA POPRAWKA NAGŁÓWKA NA TELEFON
+   PERFEKCYJNA POPRAWKA MOBILNA (DLA IPHONE'ÓW I SMARTFONÓW)
    ========================================== */
 html, body {
   overflow-x: hidden !important;
   max-width: 100vw !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
-  /* 1. USUWAMY NAPIS "HUNTER OF BRICKS" Z NAGŁÓWKA NA TELEFONIE */
-  header > *:first-child,
-  header .brand,
-  header .logo,
-  header a:first-child:not(nav a) {
-    display: none !important;
-  }
-
-  /* 2. WYŚRODKOWANIE PASEK NAWIGACJI */
-  header, nav, .nav-container, .header-inner {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
+  /* NAWIGACJA GÓRNA */
+  header, .header-inner, nav, .nav-container {
+    flex-direction: column !important;
     align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 8px !important;
     width: 100% !important;
-    padding: 14px 5px !important;
-    margin: 0 auto !important;
     box-sizing: border-box !important;
   }
 
-  /* 3. SAME PRZYCISKI - RETRO, NOWE, FIGURKI, KONTAKT */
-  nav, .nav-links {
+  /* Logo nawigacji na samej górze */
+  .logo-text, header .logo {
+    font-size: 14px !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+  }
+
+  /* Kontener z linkami w nawigacji */
+  .nav-links, nav {
     display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 12px !important;
+    gap: 8px 12px !important;
     width: 100% !important;
   }
 
-  nav a, .nav-links a, header a {
-    font-size: 11px !important;
-    letter-spacing: 1.5px !important;
-    padding: 2px 4px !important;
+  /* Linki w menu: mniejszy font, zero rozpychania */
+  nav a, .nav-links a {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+    padding: 4px 6px !important;
     margin: 0 !important;
     white-space: nowrap !important;
-    text-transform: uppercase !important;
   }
 
-  /* Wyłączamy pionowe kreski/separatory, jeśli jakieś były */
-  header .divider, header .nav-divider, header span:not(nav span) {
+  /* Ukrywamy ikony społecznościowe w górnym pasku na telefonie, żeby nie zapychały miejsca */
+  header .social-icons, header .nav-social, header a[href*="instagram"], header a[href*="facebook"] {
     display: none !important;
+  }
+
+  /* Pasek pionowy separatora w menu też ukrywamy na mobile */
+  header .nav-divider, header .divider {
+    display: none !important;
+  }
+
+  /* STOPKA (FOOTER) - ELEGANTKI UKŁAD W PIONIE */
+  footer, .footer-container, .footer-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+    padding: 30px 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Logo w stopce */
+  footer .footer-logo, footer .logo {
+    margin: 0 auto !important;
+  }
+
+  /* Środkowa sekcja w stopce (Social & RODO) */
+  footer .footer-center, footer .footer-links, footer .social-links {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    width: 100% !important;
+  }
+
+  footer a {
+    font-size: 11px !important;
+  }
+
+  /* Copyright na samym dole */
+  footer .footer-copy, footer .copyright {
+    font-size: 10px !important;
+    opacity: 0.7;
+    margin-top: 5px !important;
   }
 }
 </style>
