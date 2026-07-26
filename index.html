@@ -119,7 +119,8 @@ html, body {
 @media (max-width: 768px) {
   /* NAWIGACJA GÓRNA */
   header, .header-inner, nav, .nav-container {
-    flex-direction: column !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 12px 8px !important;
@@ -127,12 +128,9 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* Logo nawigacji na samej górze */
+  /* Chowamy logo/nazwę w nagłówku na mobile – zostaje sam pasek linków */
   .logo-text, header .logo {
-    font-size: 14px !important;
-    letter-spacing: 2px !important;
-    margin-bottom: 8px !important;
-    text-align: center !important;
+    display: none !important;
   }
 
   /* Kontener z linkami w nawigacji */
